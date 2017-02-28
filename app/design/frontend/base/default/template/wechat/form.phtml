@@ -1,0 +1,12 @@
+<?php 
+$code = $this->getMethodCode();
+$title = Mage::helper('wechat')->getConfigData('title');
+$description = Mage::helper('wechat')->getConfigData('description');
+?>
+<fieldset class="form-list">
+    <ul id="payment_form_<?php echo $code ?>" style="display:none">
+        <li>
+            <?php echo $description;?> 
+        </li>
+    </ul>
+</fieldset>

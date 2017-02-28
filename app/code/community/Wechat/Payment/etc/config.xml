@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<config>
+	<modules>
+		<Wechat_Payment>
+			<version>1.0.0</version>
+		</Wechat_Payment>
+	</modules>
+
+	<global>
+		<models>
+			<wechat>
+				<class>Wechat_Payment_Model</class>
+			</wechat>
+		</models>
+
+		<blocks>
+			<wechat>
+				<class>Wechat_Payment_Block</class>
+			</wechat>
+		</blocks>
+
+		<resources>
+			<wechat_setup>
+				<setup>
+					<module>Wechat_Payment</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</wechat_setup>
+			<wechat_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</wechat_write>
+			<wechat_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</wechat_read>
+		</resources>
+		<helpers>
+			<wechat>
+				<class>Wechat_Payment_Helper</class>
+			</wechat>
+		</helpers>
+	</global>
+
+
+	<frontend>
+		<routers>
+			<wechat>
+				<use>standard</use>
+				<args>
+					<module>Wechat_Payment</module>
+					<frontName>wechat</frontName>
+				</args>
+			</wechat>
+		</routers>
+		<translate>
+			<modules>
+				<Wechat_Payment>
+					<files>
+						<default>Wechat_Payment.csv</default>
+					</files>
+				</Wechat_Payment>
+			</modules>
+		</translate>
+	</frontend>
+
+
+	<adminhtml>
+		<translate>
+			<modules>
+				<Wechat_Payment>
+					<files>
+						<default>Wechat_Payment.csv</default>
+					</files>
+				</Wechat_Payment>
+			</modules>
+		</translate>
+	</adminhtml>
+
+	<default>
+		<payment>
+			<wechat>
+				<active>0</active>
+				<model>wechat/wechat</model>
+				<title>Wechat Payment</title>
+				<description>You will be redirected to Wechat Payment when you place an order.</description>
+				<transaction_url>https://pay.wordpressopen.com</transaction_url>
+				<sort_order>0</sort_order>
+			</wechat>
+		</payment>
+	</default>
+</config>
