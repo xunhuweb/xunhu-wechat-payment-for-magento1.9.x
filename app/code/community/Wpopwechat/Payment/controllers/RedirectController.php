@@ -1,6 +1,6 @@
 <?php
 
-class Wechat_Payment_RedirectController extends Mage_Core_Controller_Front_Action {
+class Wpopwechat_Payment_RedirectController extends Mage_Core_Controller_Front_Action {
 
 //     protected function _expireAjax() {
 //         if (!Mage::getSingleton('checkout/session')->getQuote()->hasItems()) {
@@ -15,13 +15,13 @@ class Wechat_Payment_RedirectController extends Mage_Core_Controller_Front_Actio
 //     }
 
     public function indexAction() {
-    	$order = Mage::helper('wechat')->getOrder();
+    	$order = Mage::helper('wpopwechat')->getOrder();
     	if(!in_array($order->getState(), array(
     	    Mage_Sales_Model_Order::STATE_NEW,
     	    Mage_Sales_Model_Order::STATE_PENDING_PAYMENT
     	     
     	))){
-    	    $this->_redirectUrl(Mage::getUrl('wechat/redirect/success', array('transaction_id' => $order->getRealOrderId())));
+    	    $this->_redirectUrl(Mage::getUrl('wpopwechat/redirect/success', array('transaction_id' => $order->getRealOrderId())));
     	    return;
     	}
     	if(!($order&&$order instanceof Mage_Sales_Model_Order)){
@@ -29,7 +29,7 @@ class Wechat_Payment_RedirectController extends Mage_Core_Controller_Front_Actio
     	}
     	
     	$payment =$order->getPayment();
-    	if( $payment->getMethod()!='wechat'){
+    	if( $payment->getMethod()!='wpopwechat'){
     	    throw new Exception('unknow order payment method');
     	}
     	
@@ -37,12 +37,12 @@ class Wechat_Payment_RedirectController extends Mage_Core_Controller_Front_Actio
     	$website=$protocol.$_SERVER['HTTP_HOST'];
     	
     	$total_amount     = round($order->getGrandTotal(),2);
-    	$helper =Mage::helper('wechat');
+    	$helper =Mage::helper('wpopwechat');
     	
     	$data=array(
     	    'version'   => '1.1',//api version
     	    'lang'       => Mage::getStoreConfig('general/locale/code'),
-    	    'is_app'    =>  $helper->isWebApp()?'Y':'N',
+    	    'is_app'    =>  $helper->is_wpopwechat_app()?'Y':'N',
     	    'plugins'   => 'magento-wechat',
     	    'appid'     => $helper->getConfigData('app_id'),
     	    'trade_order_id'=> $order->getRealOrderId(),
@@ -51,7 +51,7 @@ class Wechat_Payment_RedirectController extends Mage_Core_Controller_Front_Actio
     	    'title'     => $helper->get_order_title($order),
     	    'description'=> $helper->get_order_desc($order),
     	    'time'      => time(),
-    	    'notify_url'=> Mage::getUrl('wechat/notify'),
+    	    'notify_url'=> Mage::getUrl('wpopwechat/notify'),
     	    'return_url'=> Mage::getUrl('customer/account'),
     	    'callback_url'=>Mage::getUrl('checkout/cart'),
     	    'nonce_str' => str_shuffle(time())
@@ -72,8 +72,8 @@ class Wechat_Payment_RedirectController extends Mage_Core_Controller_Front_Actio
     	    if(!isset( $result['hash'])|| $hash!=$result['hash']){
     	        throw new Exception($helper->__('Invalid sign!'),40029);
     	    }
-    	
-    	    if($result['errcode']!=0){
+    	   
+    	    if("{$result['errcode']}"!=0){
     	        throw new Exception($result['errmsg'],$result['errcode']);
     	    }
     	    
@@ -87,11 +87,11 @@ class Wechat_Payment_RedirectController extends Mage_Core_Controller_Front_Actio
         	 <!DOCTYPE html>
         	    <html>
         	    <head>
-        	    	<title><?php print $helper->__('Redirect to wechat ...')?></title>
+        	    	<title><?php print $helper->__('Redirect to wpopwechat ...')?></title>
         	    </head>
         	    <body>
                 	<?php 
-            	    print $helper->__('Redirect to wechat ...');
+            	    print $helper->__('Redirect to wpopwechat ...');
             	    ?>
     	    		<script type="text/javascript">location.href="<?php print $result['url'];?>";</script>
         	 </body>
@@ -102,6 +102,11 @@ class Wechat_Payment_RedirectController extends Mage_Core_Controller_Front_Actio
     	    ?>
     	 <!DOCTYPE html>
     	    <html>
+    	    <meta charset="utf-8" />
+        	<title><?php print $helper->__('System error!')?></title>
+        	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    	    
     	    <head>
     	    	<title><?php print $helper->__('Ops!Something is wrong.')?></title>
     	    </head>

@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<config>
+	<modules>
+		<Wpopwechat_Payment>
+			<version>1.0.0</version>
+		</Wpopwechat_Payment>
+	</modules>
+
+	<global>
+		<models>
+			<wpopwechat>
+				<class>Wpopwechat_Payment_Model</class>
+			</wpopwechat>
+		</models>
+
+		<blocks>
+			<wpopwechat>
+				<class>Wpopwechat_Payment_Block</class>
+			</wpopwechat>
+		</blocks>
+
+		<resources>
+			<wpopwechat_setup>
+				<setup>
+					<module>Wpopwechat_Payment</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</wpopwechat_setup>
+			<wpopwechat_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</wpopwechat_write>
+			<wpopwechat_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</wpopwechat_read>
+		</resources>
+		<helpers>
+			<wpopwechat>
+				<class>Wpopwechat_Payment_Helper</class>
+			</wpopwechat>
+		</helpers>
+	</global>
+
+
+	<frontend>
+		<routers>
+			<wpopwechat>
+				<use>standard</use>
+				<args>
+					<module>Wpopwechat_Payment</module>
+					<frontName>wpopwechat</frontName>
+				</args>
+			</wpopwechat>
+		</routers>
+		<translate>
+			<modules>
+				<Wpopwechat_Payment>
+					<files>
+						<default>Wpopwechat_Payment.csv</default>
+					</files>
+				</Wpopwechat_Payment>
+			</modules>
+		</translate>
+	</frontend>
+
+
+	<adminhtml>
+		<translate>
+			<modules>
+				<Wpopwechat_Payment>
+					<files>
+						<default>Wpopwechat_Payment.csv</default>
+					</files>
+				</Wpopwechat_Payment>
+			</modules>
+		</translate>
+	</adminhtml>
+
+	<default>
+		<payment>
+			<wpopwechat>
+				<active>0</active>
+				<model>wpopwechat/wpopwechat</model>
+				<title>Wechat Payment</title>
+				<description>You will be redirected to wechat payment when you place an order.</description>
+				<transaction_url>https://pay.wordpressopen.com</transaction_url>
+				<sort_order>0</sort_order>
+			</wpopwechat>
+		</payment>
+	</default>
+</config>

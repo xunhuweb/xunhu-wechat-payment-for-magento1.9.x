@@ -3,7 +3,7 @@
 	<sections>
 		<payment>
 			<groups>
-				<wechat translate="label" module="wechat">
+				<wpopwechat translate="label" module="wpopwechat">
 					<label>Wechat Payment Settings</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>0</sort_order>
@@ -77,7 +77,7 @@
                             <show_in_store>0</show_in_store>
                         </sort_order>
 					</fields>
-				</wechat>
+				</wpopwechat>
 			</groups>
 		</payment>
 	</sections>

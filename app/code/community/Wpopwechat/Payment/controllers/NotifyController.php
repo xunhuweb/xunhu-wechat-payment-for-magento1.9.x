@@ -1,6 +1,6 @@
 <?php
 
-class Wechat_Payment_NotifyController extends Mage_Core_Controller_Front_Action
+class Wpopwechat_Payment_NotifyController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Instantiate notify model and pass notify request to it
@@ -20,7 +20,7 @@ class Wechat_Payment_NotifyController extends Mage_Core_Controller_Front_Action
             return;
         }
         
-        $helper =Mage::helper('wechat');
+        $helper =Mage::helper('wpopwechat');
         $hashkey          = $helper->getConfigData('app_secret');
         $app_id           = $helper->getConfigData('app_id');
         $hash             = $helper->generate_xh_hash($data,$hashkey);
@@ -54,7 +54,7 @@ class Wechat_Payment_NotifyController extends Mage_Core_Controller_Front_Action
             }
              
             $payment = $order->getPayment();
-            if( $payment->getMethod()!='wechat'){
+            if( $payment->getMethod()!='wpopwechat'){
                 throw new Exception('unknow order payment method');
             }
             
@@ -66,7 +66,7 @@ class Wechat_Payment_NotifyController extends Mage_Core_Controller_Front_Action
             $invoice = $payment->getCreatedInvoice();
             if ($invoice && ! $order->getEmailSent()) {
                 $order->sendNewOrderEmail()
-                ->addStatusHistoryComment(Mage::helper('wechat')->__('Notified customer about invoice #%s.', $invoice->getIncrementId()))
+                ->addStatusHistoryComment(Mage::helper('wpopwechat')->__('Notified customer about invoice #%s.', $invoice->getIncrementId()))
                 ->setIsCustomerNotified(true)
                 ->save();
             }

@@ -1,6 +1,6 @@
 <?php
 
-class Wechat_Payment_Helper_Data extends Mage_Core_Helper_Abstract
+class Wpopwechat_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
     /**
@@ -15,9 +15,11 @@ class Wechat_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $storeId = Mage::app()->getStore()->getStoreId();
         }
         
-        return trim(Mage::getStoreConfig("payment/wechat/$code", $storeId));
+        return trim(Mage::getStoreConfig("payment/wpopwechat/$code", $storeId));
     }
-
+    public function is_wpopwechat_app(){
+        return strripos($_SERVER['HTTP_USER_AGENT'],'micromessenger')!=false;
+    }
     /**
      * Get order
      *

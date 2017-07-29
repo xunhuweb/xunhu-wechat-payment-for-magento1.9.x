@@ -1,9 +1,9 @@
 <?php
 
-class Wechat_Payment_Model_Wechat extends Mage_Payment_Model_Method_Abstract {
-    protected $_code          = 'wechat';
-    protected $_formBlockType = 'wechat/form';
-    protected $_infoBlockType = 'wechat/info';
+class Wpopwechat_Payment_Model_Wpopwechat extends Mage_Payment_Model_Method_Abstract {
+    protected $_code          = 'wpopwechat';
+    protected $_formBlockType = 'wpopwechat/form';
+    protected $_infoBlockType = 'wpopwechat/info';
     protected $_order;
 
     /**
@@ -24,7 +24,7 @@ class Wechat_Payment_Model_Wechat extends Mage_Payment_Model_Method_Abstract {
     }
 
     public function getOrderPlaceRedirectUrl() {
-        return Mage::getUrl('wechat/redirect', array('_secure' => true));
+        return Mage::getUrl('wpopwechat/redirect', array('_secure' => true));
     }
 
     /**
