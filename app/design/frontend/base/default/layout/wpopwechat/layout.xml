@@ -1,0 +1,19 @@
+<layout version="0.1.0">
+    <sales_order_history>
+        <reference name="sales.order.history">
+            <action method="setTemplate"><template>wpopwechat/sales/order/history.phtml</template></action>
+        </reference>
+    </sales_order_history>
+    
+    <customer_account_index>
+        <reference name="customer_account_dashboard_top">
+            <action method="setTemplate"><template>wpopwechat/sales/order/recent.phtml</template></action>
+        </reference>
+    </customer_account_index>    
+
+    <sales_order_view>
+        <reference name="sales.order.info.buttons">
+            <action method="setTemplate"><template>wpopwechat/sales/order/info/buttons.phtml</template></action>
+        </reference>
+    </sales_order_view>
+</layout>
