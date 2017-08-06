@@ -45,6 +45,17 @@
 				<class>Wpopwechat_Payment_Helper</class>
 			</wpopwechat>
 		</helpers>
+		<events>
+			<sales_model_service_quote_submit_success>
+				<observers>
+					<wpopwechat_sales_model_service_quote_submit_success>
+							<type>singleton</type>
+							<class>Wpopwechat_Payment_Model_Observer</class>
+							<method>sales_model_service_quote_submit_success</method>
+					</wpopwechat_sales_model_service_quote_submit_success>
+				</observers>
+			</sales_model_service_quote_submit_success>
+		</events>
 	</global>
 
 
@@ -88,6 +99,7 @@
 				<active>0</active>
 				<model>wpopwechat/wpopwechat</model>
 				<title>Wechat Payment</title>
+				<order_status>pending</order_status>
 				<description>You will be redirected to wechat payment when you place an order.</description>
 				<transaction_url>https://pay.wordpressopen.com</transaction_url>
 				<sort_order>0</sort_order>

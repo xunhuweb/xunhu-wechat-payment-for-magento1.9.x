@@ -70,6 +70,10 @@ class Wpopwechat_Payment_NotifyController extends Mage_Core_Controller_Front_Act
                 ->setIsCustomerNotified(true)
                 ->save();
             }
+            $session = Mage::getSingleton('checkout/session');
+            $session->setQuoteId($order->getQuoteId());
+            $session->getQuote()->setIsActive(false)->save();
+            
         }catch(Exception $e){
             //looger
             $helper->log( $e->getMessage());

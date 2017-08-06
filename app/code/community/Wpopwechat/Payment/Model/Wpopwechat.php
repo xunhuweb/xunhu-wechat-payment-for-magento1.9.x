@@ -3,8 +3,17 @@
 class Wpopwechat_Payment_Model_Wpopwechat extends Mage_Payment_Model_Method_Abstract {
     protected $_code          = 'wpopwechat';
     protected $_formBlockType = 'wpopwechat/form';
-    protected $_infoBlockType = 'wpopwechat/info';
+     //protected $_infoBlockType = 'wpopwechat/info';
     protected $_order;
+
+    protected $_isGateway               = false;
+    protected $_canAuthorize            = true;
+    protected $_canCapture              = true;
+    protected $_canVoid                 = false;
+    protected $_canUseInternal          = false;
+    protected $_canUseCheckout          = true;
+    protected $_canUseForMultishipping  = false;
+    protected $_canRefund               = false;
 
     /**
      * Get order model
@@ -27,20 +36,14 @@ class Wpopwechat_Payment_Model_Wpopwechat extends Mage_Payment_Model_Method_Abst
         return Mage::getUrl('wpopwechat/redirect', array('_secure' => true));
     }
 
-    /**
-     * Method that will be executed instead of authorize or capture
-     * if flag isInitializeNeeded set to true
-     *
-     * @param string $paymentAction
-     * @param Mage_Sales_Model_Order $stateObject
-     *
-     * @return Mage_Payment_Model_Abstract
-     */
-    public function initialize($paymentAction, $stateObject)
+    public function capture(Varien_Object $payment, $amount)
     {
-        $state = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
-        $stateObject->setState($state);
-        $stateObject->setStatus($state);
-        $stateObject->setIsNotified(false);
+        $payment->setStatus(self::STATUS_APPROVED)->setLastTransId($this->getTransactionId());
+    
+        return $this;
+    }
+    
+    public function getRepayUrl($order){
+        return Mage::getUrl('wpopwechat/redirect', array('_secure' => true,'orderId'=>$order->getRealOrderId()));
     }
 }
